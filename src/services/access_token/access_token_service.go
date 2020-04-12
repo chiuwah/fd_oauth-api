@@ -14,6 +14,8 @@ type Repository interface {
 
 type Service interface {
 	GetById(string) (*access_token.AccessToken, *errors.RestErr)
+	Create(access_token.AccessToken) *errors.RestErr
+	UpdateExpirationTime(access_token.AccessToken) *errors.RestErr
 }
 
 type service struct {
