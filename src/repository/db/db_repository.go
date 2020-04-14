@@ -57,7 +57,7 @@ func (r *dbRepository) Create(at access_token.AccessToken) *errors.RestErr {
 }
 
 func (r *dbRepository) UpdateExpirationTime(at access_token.AccessToken) *errors.RestErr {
-	if err := cassandra.GetSession().Query(queryCreateAccessToken,
+	if err := cassandra.GetSession().Query(queryUpdateExpires,
 		at.Expires,
 		at.AccessToken,
 	).Exec(); err != nil {

@@ -2,15 +2,16 @@ package rest
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/chiuwah/fd_oauth-api/src/domain/users"
 	"github.com/chiuwah/fd_oauth-api/src/utils/errors"
-	"github.com/mercadolibre/golang-restclient/rest"
+	"github.com/federicoleon/golang-restclient/rest"
 	"time"
 )
 
 var (
 	usersRestClient = rest.RequestBuilder{
-		BaseURL: "http://api.bookstore.com",
+		BaseURL: "https://api.bookstore.com",
 		Timeout: 100 * time.Millisecond,
 	}
 )
@@ -31,12 +32,16 @@ func (r *usersRepository) LoginUser(email string, password string) (*users.User,
 		Password: password,
 	}
 
+	bytes, _ := json.Marshal(request)
+	fmt.Println(string(bytes))
+
 	response := usersRestClient.Post("/users/login", request)
 
 	if response == nil || response.Response == nil {
 		return nil, errors.NewInternalServerError("invalid restclient response when trying to login user")
 	}
 	if response.StatusCode > 299 {
+		fmt.Println(response.String())
 		var restErr errors.RestErr
 		err := json.Unmarshal(response.Bytes(), &restErr)
 		if err != nil {
