@@ -8,15 +8,17 @@ import (
 	"strings"
 )
 
-type Repository interface {
-	GetById(string) (*access_token.AccessToken, *errors.RestErr)
-	Create(access_token.AccessTokenRequest) (*access_token.AccessToken, *errors.RestErr)
-	UpdateExpirationTime(access_token.AccessToken) *errors.RestErr
-}
+type (
+	Repository interface {
+		GetById(string) (*access_token.AccessToken, *errors.RestErr)
+		Create(access_token.AccessTokenRequest) (*access_token.AccessToken, *errors.RestErr)
+		UpdateExpirationTime(access_token.AccessToken) *errors.RestErr
+	}
+)
 
 type Service interface {
-	GetById(string) (*access_token.AccessToken, errors.RestErr)
-	Create(access_token.AccessToken) *errors.RestErr
+	GetById(string) (*access_token.AccessToken, *errors.RestErr)
+	Create(access_token.AccessTokenRequest) (*access_token.AccessToken, *errors.RestErr)
 	UpdateExpirationTime(access_token.AccessToken) *errors.RestErr
 }
 

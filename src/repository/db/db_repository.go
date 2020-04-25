@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/chiuwah/fd_oauth-api/src/clients/cassandra"
 	"github.com/chiuwah/fd_oauth-api/src/domain/access_token"
+	"github.com/chiuwah/fd_oauth-api/src/repository/rest"
 	"github.com/chiuwah/fd_oauth-api/src/utils/errors"
 	"github.com/gocql/gocql"
 )
@@ -14,8 +15,8 @@ const (
 	queryUpdateExpires     = "UPDATE access_tokens SET expires=? WHERE access_token=?;"
 )
 
-func NewRepository() DbRepository {
-	return &dbRepository{}
+func NewRepository() (rest.RestUsersRepository, DbRepository) {
+	return nil, &dbRepository{}
 }
 
 type DbRepository interface {
